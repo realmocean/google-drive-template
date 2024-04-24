@@ -1,0 +1,31 @@
+
+div.App-menu__left.Island{
+    left: calc(100% - 220px);
+}
+
+.excalidraw.excalidraw-container {
+    overflow: visible;
+
+}
+
+.excalidraw .library-menu-browse-button {
+    display: none !important;
+}
+
+.excalidraw .library-menu-items-container__header--excal{
+    display: none !important;
+}
+
+
+
+div.dropdown-menu-group {
+    display: none !important;
+} 
+
+
+.excalidraw  {
+  --lg-button-size: 3rem !important;
+  --lg-icon-size: 2rem !important;
+  --default-button-size: 3rem !important;
+  --default-icon-size: 2rem !important;
+}

@@ -1,0 +1,7 @@
+node_modules
+dist_web
+.DS_Store
+DS_Store
+**/.DS_Store
+zip
+mysecret.ts
