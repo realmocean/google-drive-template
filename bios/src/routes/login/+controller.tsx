@@ -186,71 +186,7 @@ export class LoginController extends CelminoController {
                                         .cornerRadius(3)
                                         .foregroundColor('white')
                                         .onClick(async () => {
-
-                                            const files = await GooleDriveBroker.Default
-                                            .listFiles();
-                                            console.log(files)
-
-                                           /*  GooleDriveBroker.Default.getUserToken().then(async (token)=> {
-                                                console.log(token)
-                                              
-                                            }) */
-
-                                           /*  const popup = window.open("/v1/service/google", "popup", "popup = true");
-
-                                            const checkPopup = setInterval(() => {
-                                                if (popup.window.location.href.includes("CLOSE")) {
-                                                    const searchParams = new URLSearchParams(decodeURI(popup.window.location.search));
-                                                    if (searchParams.get('CLOSE') === 'true') {
-                                                        alert(searchParams.get('access_token'))
-                                                        popup.close()
-                                                    }
-                                                }
-                                                if (!popup || !popup.closed) return;
-                                                clearInterval(checkPopup);
-                                            }, 10); */
-
-
-                                            /*  const token: any = await QdmsBroker.GetToken('http://93.180.135.42/QDMS/QDMSNET/BSAT/BSATWebapi.asmx?WSDL','qdms', 'qdms24');
-                                           const users = await QdmsBroker.Default
-                                           .setUrl('http://93.180.135.42/QDMS/QDMSNET/BSAT/BSATWebapi.asmx?WSDL')
-                                           .setToken(token.token)
-                                           .listUsers();
-                
-                                            console.log(users)  */
-
-                                            /* const url = 'http://93.180.135.42/QDMS/QDMSNET/BSAT/BSATWebapi.asmx?WSDL';
-                                             const token: any = await Services.QDMS.getToken(url, 'qdms', 'qdms24');
-                                           const users = await Services.QDMS.listUsers( url , token.token);
-                                           console.log(users); */
-
-                                            /*  const broker = new GithubBroker();
-                                              broker
-                                              .setUserName('bpmgenesis')
-                                              .setRepo('tenant-manager')
-                                              .setToken(Secrets.GithubToken)
-                                              .getService()
-                                              .createIssue(
-                                              {
-                                                  title: 'hehe',
-                                                  body:'sdhkfk'
-                                              }
-                                         ) */
-                                            /*  Services.Github.createIssue('bpmgenesis','tenant-manager', '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',
-                                                 {
-                                                     title: 'hehe',
-                                                     body:'sdhkfk'
-                                                 }
-                                             ); */
-
-                                            /*  createEmailSession({
-                                                 email: email,
-                                                 password: password
-                                             }, () => {
-                                                 navigate('/')
-                                             }) */
-
-
+                                            
                                         }),
                                     HStack({ alignment: cLeading })(
                                         Text('Reset password')
