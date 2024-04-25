@@ -6891,30 +6891,6 @@ var MainController = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./src/hooks/useGetSubdomain.ts":
-/*!**************************************!*\
-  !*** ./src/hooks/useGetSubdomain.ts ***!
-  \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   useGetSubdomain: () => (/* binding */ useGetSubdomain)
-/* harmony export */ });
-var useGetSubdomain = function (url) {
-    if (url === void 0) { url = window.location.hostname; }
-    var names = url.split('.');
-    if ((url.indexOf('localhost') > -1 && names.length === 2) || names.length === 3) {
-        return names[0];
-    }
-    else {
-        return null;
-    }
-};
-
-
-/***/ }),
-
 /***/ "./src/routes/+routes.ts":
 /*!*******************************!*\
   !*** ./src/routes/+routes.ts ***!
@@ -7161,12 +7137,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _tuval_forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @tuval/forms */ "@tuval/forms");
 /* harmony import */ var _tuval_forms__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_tuval_forms__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _hooks_useGetSubdomain__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../hooks/useGetSubdomain */ "./src/hooks/useGetSubdomain.ts");
-/* harmony import */ var _realmocean_sdk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @realmocean/sdk */ "@realmocean/sdk");
-/* harmony import */ var _realmocean_sdk__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_realmocean_sdk__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _views_FolderView__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../views/FolderView */ "./src/views/FolderView.tsx");
+/* harmony import */ var _realmocean_sdk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @realmocean/sdk */ "@realmocean/sdk");
+/* harmony import */ var _realmocean_sdk__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_realmocean_sdk__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _views_FolderView__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../views/FolderView */ "./src/views/FolderView.tsx");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -7231,7 +7206,6 @@ var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from
 
 
 
-
 var LandingController = /** @class */ (function (_super) {
     __extends(LandingController, _super);
     function LandingController() {
@@ -7240,24 +7214,26 @@ var LandingController = /** @class */ (function (_super) {
     LandingController.prototype.LoadView = function () {
         var _this = this;
         var navigate = (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.useNavigate)();
-        var subDomain = (0,_hooks_useGetSubdomain__WEBPACK_IMPORTED_MODULE_1__.useGetSubdomain)();
-        var _a = (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.useState)(), folders = _a[0], setFolders = _a[1];
-        var _b = (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.useState)(), files = _b[0], setFiles = _b[1];
-        return ((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.ReactView)(react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.DialogStack, null, (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.VStack)({ alignment: _tuval_forms__WEBPACK_IMPORTED_MODULE_0__.cTopLeading })((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.HStack)((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.UIImage)('/images/google_login.svg')).width().height()
+        //const [folders, setFolders] = useState();
+        //const [files, setFiles] = useState();
+        var _a = (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.useLocalStorage)('token', null), token = _a[0], setToken = _a[1];
+        var _b = (0,_realmocean_sdk__WEBPACK_IMPORTED_MODULE_1__.useListGDriveFolders)('root', token), folders = _b.folders, isLoading = _b.isLoading;
+        var _c = (0,_realmocean_sdk__WEBPACK_IMPORTED_MODULE_1__.useListGDriveFiles)('root', token), files = _c.files, isFilesLoading = _c.isLoading;
+        (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+            /* if (token != null) {
+                GooleDriveBroker.Default.listFiles('root', token).then((files) => {
+                    setFiles(files);
+                });
+
+                GooleDriveBroker.Default.listFolders('root', token).then((folders) => {
+                    setFolders(folders);
+                });
+            } */
+        });
+        return ((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.ReactView)(react__WEBPACK_IMPORTED_MODULE_2___default().createElement(_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.DialogStack, null, (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.VStack)({ alignment: _tuval_forms__WEBPACK_IMPORTED_MODULE_0__.cTopLeading })((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.HStack)((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.UIImage)('/images/google_login.svg')).width().height()
             .onClick(function () { return __awaiter(_this, void 0, void 0, function () {
-            var files, folders;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, _realmocean_sdk__WEBPACK_IMPORTED_MODULE_2__.GooleDriveBroker.Default.listFiles()];
-                    case 1:
-                        files = _a.sent();
-                        return [4 /*yield*/, _realmocean_sdk__WEBPACK_IMPORTED_MODULE_2__.GooleDriveBroker.Default.listFolders()];
-                    case 2:
-                        folders = _a.sent();
-                        setFolders(folders);
-                        setFiles(files);
-                        return [2 /*return*/];
-                }
+                return [2 /*return*/];
             });
         }); }), folders == null ? (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.Fragment)() :
             (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.HStack)({ alignment: _tuval_forms__WEBPACK_IMPORTED_MODULE_0__.cTopLeading })((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.ScrollView)({ axes: _tuval_forms__WEBPACK_IMPORTED_MODULE_0__.cVertical, alignment: _tuval_forms__WEBPACK_IMPORTED_MODULE_0__.cTopLeading })((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.VStack)({ alignment: _tuval_forms__WEBPACK_IMPORTED_MODULE_0__.cTopLeading }).apply(void 0, __spreadArray(__spreadArray([], (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.ForEach)(folders)(function (folder) {
@@ -7271,7 +7247,9 @@ var LandingController = /** @class */ (function (_super) {
                         .onClick(function () {
                         openDialog({
                             title: 'Open',
-                            view: (0,_views_FolderView__WEBPACK_IMPORTED_MODULE_4__.FolderView)(folder)
+                            view: (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_0__.UIViewBuilder)(function () {
+                                return (0,_views_FolderView__WEBPACK_IMPORTED_MODULE_3__.FolderView)(folder);
+                            })
                         });
                     }));
                 });
@@ -7634,16 +7612,8 @@ var LoginController = /** @class */ (function (_super) {
                     .cornerRadius(3)
                     .foregroundColor('white')
                     .onClick(function () { return __awaiter(_this, void 0, void 0, function () {
-                    var files;
                     return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0: return [4 /*yield*/, _realmocean_sdk__WEBPACK_IMPORTED_MODULE_0__.GooleDriveBroker.Default
-                                    .listFiles()];
-                            case 1:
-                                files = _a.sent();
-                                console.log(files);
-                                return [2 /*return*/];
-                        }
+                        return [2 /*return*/];
                     });
                 }); }), (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.HStack)({ alignment: _tuval_forms__WEBPACK_IMPORTED_MODULE_1__.cLeading })((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.Text)('Reset password')
                     .fontSize('1.6rem')
@@ -8131,7 +8101,6 @@ function urlFriendly(value) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FolderController: () => (/* binding */ FolderController),
 /* harmony export */   FolderView: () => (/* binding */ FolderView)
 /* harmony export */ });
 /* harmony import */ var _realmocean_sdk__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @realmocean/sdk */ "@realmocean/sdk");
@@ -8140,21 +8109,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tuval_forms__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_tuval_forms__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from, pack) {
     if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
         if (ar || !(i in from)) {
@@ -8167,67 +8121,40 @@ var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from
 
 
 
-var FolderController = /** @class */ (function (_super) {
-    __extends(FolderController, _super);
-    function FolderController() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    FolderController.prototype.LoadView = function () {
-        var folderItem = this.props.folderItem;
-        var _a = (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.useState)(), files = _a[0], setFiles = _a[1];
-        (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-            _realmocean_sdk__WEBPACK_IMPORTED_MODULE_0__.GooleDriveBroker.Default.listChild(folderItem.id).then(function (folders) {
-                setFiles(folders);
-            });
-        }, []);
-        return (_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.VStack.apply(void 0, __spreadArray([(0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.HStack)((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.Heading)(folderItem.name)
-                .h2())
-                .height()], (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.ForEach)(files)(function (folder) {
-            return (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.UIViewBuilder)(function () {
-                var openDialog = (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.useDialogStack)().openDialog;
-                return ((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.HStack)({ alignment: _tuval_forms__WEBPACK_IMPORTED_MODULE_1__.cLeading, spacing: 5 })((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.UIImage)(folder.iconLink.replace('16', '32')), (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.Text)(folder.name)
-                    .foregroundColor('rgb(31, 31, 31)'))
-                    .allHeight(50)
-                    .borderBottom('solid 1px #CCCCCC55')
-                    .background({ hover: '#F0F1F1' })
-                    .onClick(function () {
-                    openDialog({
-                        title: 'Open',
-                        view: FolderView(folder)
-                    });
-                }));
-            });
-        }), false)));
-    };
-    return FolderController;
-}(_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.UIController));
-
 var FolderView = function (folderItem) { return (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.UIViewBuilder)(function () {
-    var _a = (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.useState)(), files = _a[0], setFiles = _a[1];
+    var _a = (0,_realmocean_sdk__WEBPACK_IMPORTED_MODULE_0__.useListGDriveFolders)(folderItem.id), folders = _a.folders, isLoading = _a.isLoading;
+    var _b = (0,_realmocean_sdk__WEBPACK_IMPORTED_MODULE_0__.useListGDriveFiles)(folderItem.id), files = _b.files, isFilesLoading = _b.isLoading;
     (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-        _realmocean_sdk__WEBPACK_IMPORTED_MODULE_0__.GooleDriveBroker.Default.listChild(folderItem.id).then(function (folders) {
-            setFiles(folders);
-        });
+        /*    GooleDriveBroker.Default.listChild(folderItem.id).then((folders) => {
+               setFiles(folders)
+           }) */
     }, []);
-    return ((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.VStack)((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.HStack)((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.Heading)(folderItem.mimeType)
-        .h2())
-        .height(), folderItem.mimeType === 'application/vnd.google-apps.folder' ? _tuval_forms__WEBPACK_IMPORTED_MODULE_1__.VStack.apply(void 0, (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.ForEach)(files)(function (folder) {
-        return (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.UIViewBuilder)(function () {
-            var openDialog = (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.useDialogStack)().openDialog;
-            return ((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.HStack)({ alignment: _tuval_forms__WEBPACK_IMPORTED_MODULE_1__.cLeading, spacing: 5 })((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.UIImage)(folder.iconLink.replace('16', '32')), (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.Text)(folder.name)
-                .foregroundColor('rgb(31, 31, 31)'))
-                .allHeight(50)
-                .borderBottom('solid 1px #CCCCCC55')
-                .background({ hover: '#F0F1F1' })
-                .onClick(function () {
-                openDialog({
-                    title: 'Open',
-                    view: FolderView(folder)
+    return ((isLoading || isFilesLoading) ? (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.Fragment)() :
+        (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.VStack)((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.HStack)({ alignment: _tuval_forms__WEBPACK_IMPORTED_MODULE_1__.cLeading })((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.UIImage)(folderItem.iconLink.replace('16', '32')), (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.Heading)(folderItem.name)
+            .h2())
+            .padding()
+            .height(60), folderItem.mimeType === 'application/vnd.google-apps.folder' ?
+            (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.VStack)((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.ScrollView)({ axes: _tuval_forms__WEBPACK_IMPORTED_MODULE_1__.cVertical, alignment: _tuval_forms__WEBPACK_IMPORTED_MODULE_1__.cTopLeading })(_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.VStack.apply(void 0, (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.ForEach)(__spreadArray(__spreadArray([], folders, true), files, true))(function (folder) {
+                return (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.UIViewBuilder)(function () {
+                    var openDialog = (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.useDialogStack)().openDialog;
+                    return ((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.HStack)({ alignment: _tuval_forms__WEBPACK_IMPORTED_MODULE_1__.cLeading, spacing: 5 })((0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.UIImage)(folder.iconLink.replace('16', '32')), (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.Text)(folder.name)
+                        .foregroundColor('rgb(31, 31, 31)'))
+                        .allHeight(50)
+                        .borderBottom('solid 1px #CCCCCC55')
+                        .background({ hover: '#F0F1F1' })
+                        .onClick(function () {
+                        openDialog({
+                            title: folder.name,
+                            view: (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.UIViewBuilder)(function () {
+                                return FolderView(folder);
+                            })
+                        });
+                    }));
                 });
-            }));
-        });
-    })) :
-        (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.ReactView)(react__WEBPACK_IMPORTED_MODULE_2___default().createElement("iframe", { src: "".concat(folderItem.webViewLink), style: { width: '100%', height: '100%', border: 'none' } }))));
+            })).height()))
+                .padding()
+            :
+                (0,_tuval_forms__WEBPACK_IMPORTED_MODULE_1__.ReactView)(react__WEBPACK_IMPORTED_MODULE_2___default().createElement("iframe", { src: "".concat(folderItem.webViewLink.replace('/view?', '/preview?')), style: { width: '100%', height: '100%', border: 'none' } }))));
 }); };
 
 
